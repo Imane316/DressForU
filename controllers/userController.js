@@ -2,25 +2,11 @@
 //let connection = require('../db');
 const db = require('../models/index');
 const User = db.User;
-
-
 const jwt = require('jsonwebtoken');
 const jwtKey = 'my_secret_key';
-const jwtExpirySeconds = 300;
+const jwtExpirySeconds = 200;
 
-isAuthorized = async (req, res) => {
-    if (typeof req.headers.authorization !== "undefined") {
-      // retrieve the authorization header and parse out the JWT using the split function
-      let token = req.headers.authorization.split(" ")[1];
-      // Here we validate that the JSON Web Token is valid
-      jwt.verify(token, 'my_secret_key', (err, payload) => {
-      if (err) {
-      res.status(401).json({ error: "Not Authorized" });
-      }
-      req.user = payload; // allow to use the user id in the controller
-      console.log(req.user);
-      return next(); }); }
-  }
+
 
 exports.userList = async function (req, res) {
     await User.findAll({ attributes: ['iduser','pseudo', 'role'] })
@@ -47,8 +33,28 @@ exports.userList = async function (req, res) {
   }
 
 
-
-
+  exports.login = async (req, res) => {
+    const {pseudo, password} = req.body;
+  
+    try {
+      // Rechercher l'utilisateur correspondant au pseudo fourni dans la base de données
+      const user = await User.findOne({ where: { pseudo } });
+  
+      // Vérifier si l'utilisateur existe et si le mot de passe est correct
+      if (!user || user.password !== password) {
+        return res.status(401).json({ message: "Authentification échouée" });
+      }
+      let payload = {id: user.iduser};
+      let token = jwt.sign(payload, jwtKey, {
+        algorithm: "HS256",
+        expiresIn: jwtExpirySeconds,
+      })
+      // Créer un token d'authentification et le renvoyer dans la réponse
+      res.json({ "token": token, "maxAge": jwtExpirySeconds * 1000 });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  }
 
 
 

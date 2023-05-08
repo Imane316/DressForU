@@ -14,12 +14,12 @@ db.Category = require('./categoryModel');
 db.Category.hasMany(db.Dress, { foreignKey: "idcategory" });
 db.Dress.hasOne(db.Category , { foreignKey: "iddress" });
 db.User.belongsToMany(db.Dress, {
-    through: "linkUD",
+    through: "linkUDs",
     as: "users",
     foreignKey: "iduser",
 });
 db.Dress.belongsToMany(db.User, {
-    through: "linkUD",
+    through: "linkUDs",
     as: "dresses",
     foreignKey: "iddress",
 });
