@@ -10,7 +10,6 @@ const sequelize = new Sequelize(
 );
 
 
-
 module.exports = sequelize
 
 
@@ -22,9 +21,7 @@ var connection = mysql.createConnection({
     user: 'root',
     password: 'root',
     database : 'dressforu'
-    
     });
-
 connection.connect(function(error) {
     if (error) console.log(error);
 }); 

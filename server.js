@@ -3,11 +3,11 @@ let express = require('express');
 let app = express();
 app.use(express.json()); //express decode correctement les données json qu'il reçoit (body)
 
-//Importing the database model
+//Import the database model
 const Sequelize = require('sequelize');
 const db = require('./db.js');
 
-// Creating all the tables defined in agency
+// Creat all the tables 
 db.sync({alter: true})
 router = require('./routes');
 app.use('/', router);

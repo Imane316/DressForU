@@ -17,10 +17,10 @@ exports.userList = async function (req, res) {
         .catch(err => {
             res.status(500).json({ message: err.message })
         })
-  }
+}
   
   
-  exports.userNew = async function (req, res) {
+exports.userNew = async function (req, res) {
     let user = User.build({ pseudo: req.body.pseudo, password: req.body.password, role: req.body.role })
     await user.save()
         .then(data => {
@@ -30,10 +30,10 @@ exports.userList = async function (req, res) {
         .catch(err => {
             res.status(500).json({ message: err.message })
         })
-  }
+}
 
 
-  exports.login = async (req, res) => {
+exports.login = async (req, res) => {
     const {pseudo, password} = req.body;
   
     try {
@@ -48,13 +48,15 @@ exports.userList = async function (req, res) {
       let token = jwt.sign(payload, jwtKey, {
         algorithm: "HS256",
         expiresIn: jwtExpirySeconds,
-      })
+    })
       // Créer un token d'authentification et le renvoyer dans la réponse
       res.json({ "token": token, "maxAge": jwtExpirySeconds * 1000 });
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
-  }
+}
+
+
 
 
 

@@ -1,6 +1,10 @@
 const db = require('../models/index');
+
 const Dress = db.Dress;
 const User = db.User;
+const Category = db.Category;
+const DressCategory = db.DressCategory;
+
 const jwt = require('jsonwebtoken');
 const jwtKey = 'my_secret_key';
 const jwtExpirySeconds = 200;
@@ -109,5 +113,32 @@ exports.dresses = async function (req, res) {
       })
       .catch((err) => {
         console.log(">> Error while adding Tutorial to Tag: ", err);
-      })}
+      })
+  }
+  exports.addDressToCategory = async (req, res) => {
+    const { idcategory, iddress } = req.params;
+  
+    try {
+      // Vérifier si la robe et la catégorie existent
+      const dress = await Dress.findByPk(iddress);
+      if (!dress) {
+        return res.status(404).json({ message: "La robe n'existe pas" });
+      }
+      const category = await Category.findByPk(idcategory);
+      if (!category) {
+        return res.status(404).json({ message: "La catégorie n'existe pas" });
+      }
+      // Mettre à jour la robe avec la catégorie correspondante
+      dress.idcategory = idcategory;
+      await dress.save();
+      // Créer un lien entre la robe et la catégorie
+      const dresscategory = DressCategory.build({ iddress, idcategory });
+      await dresscategory.save();
+      res.json(dresscategory);
+    } 
+    catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  }
 
+ 
