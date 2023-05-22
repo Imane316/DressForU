@@ -128,6 +128,11 @@ exports.dresses = async function (req, res) {
       if (!category) {
         return res.status(404).json({ message: "La catégorie n'existe pas" });
       }
+      // Vérifier si le lien existe déjà dans la table DressCategory
+      const existingLink = await DressCategory.findOne({ where: { iddress, idcategory } });
+      if (existingLink) {
+        return res.status(409).json({ message: "Le lien entre la robe et la catégorie existe déjà" });
+      }
       // Mettre à jour la robe avec la catégorie correspondante
       dress.idcategory = idcategory;
       await dress.save();
