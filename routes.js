@@ -44,10 +44,11 @@ router.delete('/dress/:iddress', dressController.deleteDress);
 //router.get('/dress/category/:categorydress', dressController.getDressByCategory);
 
 router.get('/categories', categoryController.categories)
-//router.get('/category/:idcategory', categoryController.getCategoryById);
+router.get('/category/:idcategory', categoryController.getCategoryById);
 router.post('/category', categoryController.addCategory);
 router.put('/category/:idcategory', categoryController.updateCategory);
 router.delete('/category/:idcategory', categoryController.deleteCategory);
 router.post('/categories/:idcategory/dresses/:iddress', dressController.addDressToCategory);
+router.delete('/category/:idcategory/dress/:iddress', dressController.removeDressFromCategory);
 
 module.exports = router;

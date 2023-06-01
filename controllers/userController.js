@@ -35,7 +35,6 @@ exports.userNew = async function (req, res) {
 
 exports.login = async (req, res) => {
     const {pseudo, password} = req.body;
-  
     try {
       // Rechercher l'utilisateur correspondant au pseudo fourni dans la base de données
       const user = await User.findOne({ where: { pseudo } });

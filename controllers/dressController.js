@@ -145,5 +145,31 @@ exports.dresses = async function (req, res) {
       res.status(500).json({ message: err.message });
     }
   }
-
+  exports.removeDressFromCategory = async (req, res) => {
+    const { idcategory, iddress } = req.params;
+  
+    try {
+      // Vérifier si la robe et la catégorie existent
+      const dress = await Dress.findByPk(iddress);
+      if (!dress) {
+        return res.status(404).json({ message: "La robe n'existe pas" });
+      }
+      const category = await Category.findByPk(idcategory);
+      if (!category) {
+        return res.status(404).json({ message: "La catégorie n'existe pas" });
+      }
+  
+      // Supprimer le lien entre la robe et la catégorie
+      const deletedLink = await DressCategory.destroy({ where: { iddress, idcategory } });
+  
+      if (deletedLink) {
+        res.json({ message: "Le lien entre la robe et la catégorie a été supprimé avec succès" });
+      } else {
+        res.status(404).json({ message: "Le lien entre la robe et la catégorie n'a pas été trouvé" });
+      }
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  };
+  
  

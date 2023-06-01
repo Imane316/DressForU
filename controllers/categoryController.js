@@ -3,10 +3,11 @@ const Category = db.Category;
 
 
 exports.categories = async function (req, res) {
-    await Category.findAll({ attributes: ['idCategory','name'] })
+    await Category.findAll({ attributes: ['idcategory','name'] })
         .then(data => {
             console.log("All Categories:", JSON.stringify(data, null, 2));
             res.json(data);
+            console.log(data);
         })
         .catch(err => {
             res.status(500).json({ message: err.message })
