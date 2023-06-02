@@ -1,4 +1,5 @@
 const db = require('../models/index');
+const fs = require ('fs');
 
 const Dress = db.Dress;
 const User = db.User;
@@ -55,7 +56,10 @@ exports.dresses = async function (req, res) {
   
   
   exports.addDress = async function (req, res) {
-    let dress = Dress.build({ name: req.body.name, picture: req.body.picture, price: req.body.price, material: req.body.materail, cat: req.body.cat, size: req.body.size })
+    
+    console.log(req.body);
+    console.log(req.file);
+    let dress = Dress.build({ name: req.body.name, picture: req.file, price: req.body.price, material: req.body.material, size: req.body.size })
     await dress.save()
         .then(data => {
             console.log(dress.toJSON());
