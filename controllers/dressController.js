@@ -55,11 +55,11 @@ exports.dresses = async function (req, res) {
   }
   
   
+
   exports.addDress = async function (req, res) {
     
-    console.log(req.body);
-    console.log(req.file);
-    let dress = Dress.build({ name: req.body.name, picture: req.file, price: req.body.price, material: req.body.material, size: req.body.size })
+    console.log(req.body.picture);
+    let dress = Dress.build({ name: req.body.name, picture: req.body.picture, price: req.body.price, material: req.body.material, size: req.body.size })
     await dress.save()
         .then(data => {
             console.log(dress.toJSON());
@@ -69,6 +69,7 @@ exports.dresses = async function (req, res) {
             res.status(500).json({ message: err.message })
         })
   }
+  
   
   exports.updateDress = async function (req, res) {
     await Dress.update(
@@ -94,7 +95,6 @@ exports.dresses = async function (req, res) {
     res.status(500).json({ message: err.message })
     })
   }
-    //rajouter la robe à la liste fav du fournisseur 
 
   exports.SaveDress = async function (req, res) {
     const iddress = req.body.iddress;
