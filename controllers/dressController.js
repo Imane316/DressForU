@@ -73,7 +73,7 @@ exports.dresses = async function (req, res) {
   
   exports.updateDress = async function (req, res) {
     await Dress.update(
-    { name: req.body.name, picture: req.body.picture, price: req.body.price, material: req.body.materail, cat: req.body.cat, size: req.body.size },
+    { name: req.body.name, picture: req.body.picture, price: req.body.price, material: req.body.material, cat: req.body.cat, size: req.body.size },
     { where: { iddress: req.params.iddress} }
     )
     .then(data => {
