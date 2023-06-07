@@ -27,11 +27,8 @@ router.get('/users', userController.userList);
 router.post('/user', userController.userNew);
 router.post('/login', userController.login);
 
-//Send user
-//router.get('/user/:i', userController.user);
-//Update user
+
 //router.put('/user/:i', userController.userUpdate);
-// Delete user
 //router.delete('/user/:i', userController.userDelete);
 router.post('/savedress', isAuthorized, dressController.SaveDress);
 router.get('/dresses', dressController.dresses)
