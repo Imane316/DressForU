@@ -13,7 +13,10 @@ const Dress = db.define('dress', {
     price: { type: Sequelize.INTEGER, allowNull: true },
     material: { type: Sequelize.STRING, allowNull: true },
     size: { type: Sequelize.STRING, allowNull: true },
+    
 })
+
+
 
  
 

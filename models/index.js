@@ -14,7 +14,7 @@ db.sequelize = sequelize;
 
 
 db.Category.hasMany(db.Dress, { foreignKey: "idcategory" }); //ajoute une clé étrangère "idcategory" à la table Dress
-db.Dress.hasOne(db.Category , { foreignKey: "iddress" });// ajoute une clé étrangère "iddress" à la table Category
+db.Dress.hasMany(db.Category , { foreignKey: "iddress" });// ajoute une clé étrangère "iddress" à la table Category
 // belongstomany :relation de beaucoup à beaucoup entre les tables "Category" et "Dress" à l'aide 
 //d'une table intermédiaire "DressCategory" qui contient les clés étrangères "idcategory" et "iddress"
 db.Category.belongsToMany(db.Dress, {

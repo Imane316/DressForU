@@ -39,8 +39,7 @@ router.get('/dress/:iddress', dressController.getDressById);
 router.post('/dress', dressController.addDress);
 router.put('/dress/:iddress', dressController.updateDress);
 router.delete('/dress/:iddress', dressController.deleteDress);
-
-//router.get('/dress/name/:namedress', dressController.getDressByName);
+router.get('/dress/name/:namedress', dressController.getDressByName);
 //router.get('/dress/category/:categorydress', dressController.getDressByCategory);
 
 router.get('/categories', categoryController.categories)
@@ -50,5 +49,5 @@ router.put('/category/:idcategory', categoryController.updateCategory);
 router.delete('/category/:idcategory', categoryController.deleteCategory);
 router.post('/categories/:idcategory/dresses/:iddress', dressController.addDressToCategory);
 router.delete('/category/:idcategory/dress/:iddress', dressController.removeDressFromCategory);
-
+router.get('/category/:idcategory/dresses', categoryController.getDressIdsByCategoryId);
 module.exports = router;

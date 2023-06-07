@@ -1,5 +1,7 @@
 const db = require('../models/index');
 const Category = db.Category;
+const DressCategory = db.DressCategory;
+
 
 
 exports.categories = async function (req, res) {
@@ -25,8 +27,6 @@ exports.categories = async function (req, res) {
             res.status(500).json({ message: err.message })
         })
   }
-  
-  
   exports.addCategory = async function (req, res) {
     let category = Category.build({ name: req.body.name })
     await category.save()
@@ -38,7 +38,6 @@ exports.categories = async function (req, res) {
             res.status(500).json({ message: err.message })
         })
   }
-  
   exports.updateCategory = async function (req, res) {
     await Category.update(
     { name: req.body.name },
@@ -51,9 +50,6 @@ exports.categories = async function (req, res) {
     res.status(500).json({ message: err.message })
     })
   }
-  
-  
-  
   exports.deleteCategory = async function (req, res) {
     Category.destroy({ where: { idCategory: req.params.idcategory } })
     .then(data => {
@@ -63,4 +59,27 @@ exports.categories = async function (req, res) {
     res.status(500).json({ message: err.message })
     })
   }
+  exports.getDressIdsByCategoryId = async function (req, res) {
+    const categoryId = req.params.idcategory;
   
+    try {
+      const dressCategories = await DressCategory.findAll({
+        where: {
+          idcategory: categoryId,
+        },
+      });
+  
+      const dressIds = dressCategories.map((dressCategory) => dressCategory.iddress);
+      res.json({ dressIds });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+  
+  
+
+
+
+
+
+

@@ -140,6 +140,8 @@ exports.dresses = async function (req, res) {
       // Mettre à jour la robe avec la catégorie correspondante
       dress.idcategory = idcategory;
       await dress.save();
+      category.iddress =iddress
+      await category.save();
       // Créer un lien entre la robe et la catégorie
       const dresscategory = DressCategory.build({ iddress, idcategory });
       await dresscategory.save();
