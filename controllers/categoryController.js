@@ -39,16 +39,16 @@ exports.categories = async function (req, res) {
         })
   }
   exports.updateCategory = async function (req, res) {
-    await Category.update(
-    { name: req.body.name },
-    { where: { idCategory: req.params.idcategory} }
-    )
-    .then(data => {
-    res.json(data);
-    })
-    .catch(err => {
-    res.status(500).json({ message: err.message })
-    })
+      await Category.update(
+      { name: req.body.name },
+      { where: { idCategory: req.params.idcategory} }
+      )
+      .then(data => {
+      res.json(data);
+      })
+      .catch(err => {
+      res.status(500).json({ message: err.message })
+      })
   }
   exports.deleteCategory = async function (req, res) {
     Category.destroy({ where: { idCategory: req.params.idcategory } })

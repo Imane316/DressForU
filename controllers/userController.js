@@ -49,7 +49,7 @@ exports.login = async (req, res) => {
         expiresIn: jwtExpirySeconds,
     })
       // Créer un token d'authentification et le renvoyer dans la réponse
-      res.json({ "token": token, "maxAge": jwtExpirySeconds * 1000 });
+      res.json({ "token": token, "maxAge": jwtExpirySeconds * 1000});
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
